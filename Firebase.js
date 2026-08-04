@@ -2,7 +2,6 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-// 🔥 তোমার Firebase project এর config এখানে বসাও
 const firebaseConfig = {
   apiKey: "AIzaSyCSZqZ-k6pLJoXa06xh1RIZdoPnKYSSaTQ",
   authDomain: "chat-with-hacker-8ea76.firebaseapp.com",
@@ -14,5 +13,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
 export const auth = getAuth(app);
 export const db = getFirestore(app);
