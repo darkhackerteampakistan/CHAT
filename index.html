@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protected</title>
+</head>
+
+<body>
+
+<script>
+
+(function(){
+
+const data = "eNqtV8uO3EQU3c9X1NQqEbE9yQJFUdto1AyaCDJEpGeRZbV9266J7TJV5WlaCAmxI1KCgCwQCmIzkSLEgiXfkx+AT+BW+TG2291OIrwZ96lbp+7Lp+7MDj/+fL54/PCEJDpLg4OZ+UNSlsc+XebUAMCi4IDgM8tAMxImTCrQPj1ffOLcpd2lnGXg00sO60JITUkocg05mq55pBM/gksegmN/3CI855qz1FEhS8G/7R41VJrrFIJTFj4BSeYJ0zyPZ16FVhYpz5+QRMLKp4nWhbrneSs8SrmxEHEKrODKDUXmcXTgoxXLeLrxHzANEs/74D6CihIJqU+V3qSgEgBNu9TDtfosi7ihUo2xCiUvNNGbAsPmmQk6Y0W9ap6v2zfz1CaK3hss2MUVl7BkCjxWFGjRRrZer91YaUxDaINq7C6Ud/vIvesetYiDO90LRW/tIy918r7suHWK3rwoLSS85xntfnNQ75xvDvpvM6/KPnaoV7XobCmiTV2ZQ8chn4mY594jHudlQebYH4zn2FGOU9tE/JLwyKcmLids1jvVsxZhypRqjJiMOuvWJrkTLM7mZH56vEBH7gxWhwyaLdWAwdotS61Fbt1JjdvGkLY7Q80vgQY2oJlX2e4nUTZqyxKYDJDzYnzjzEMXg4M+thIy6/hiftJeGNagcWvbEZ4XZfNZQMZ4SjtsNVCkLIREpBFIn55UmIQvS2yAaIKyQEfWAkvRYb3GesQPW3gPd523ilyVy4zr6WR3KgtSCtkL0QJBndt+uk3qdua7Ltt4wqcyreErTbs0Ro4H+XgsSknOLP6Wye7Ur6b9vwtY005UkNzIeE4+vPnulZxLQO0nx2Eoyly/c0mbqCdrOvikhl+X1aQHqDH2TiPn98mNhEcR5AS94njnmta5uS1PeN9qo+xtQzQAqbbvECxrZYSxJ2mNZP37+09/ktPj+acnX+yRrpEcqYJVClMqkKbBnIgrLNjGpMYsToqbKLWz1HkbTg2Zu5qiX7/+sVeodulWN/QMlGIxKIdh5asi9qERke4ZpVxpusVm0Ym2yQq9cTIV0+DNy9fkTJBmN9mAdskjtiFK4KyU4ExzONpLbx2l/aBG4+nkGzJxwXvpvkYw2b883ZHsJiWVdcHNLDagqMDtJuy1ijnj27oxWuC7AfDqr6HF8wFw9WJnc9UWPz7rbXnz29U/f/8wYHnxagA8/76/6eXrsWPGyjSuu3WxHbs60LEF2hLW9IPrupSgsguch4oUNNKI1WpPIRXkUa+OLYBx/Hy1XcZdKtSbWTMRlSneBUqGfjvEmdEruB6vJnbVM2fQnceqQQw1xf5L8R+M+bmT";
+
+async function decode(){
+    const binary = atob(data);
+    const bytes = new Uint8Array(binary.length);
+
+    for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+    }
+
+    const stream = new DecompressionStream("deflate");
+    const writer = stream.writable.getWriter();
+
+    writer.write(bytes);
+    writer.close();
+
+    const buffer = await new Response(stream.readable).arrayBuffer();
+    return new TextDecoder().decode(buffer);
+}
+
+decode().then(html => {
+    document.open();
+    document.write(html);
+    document.close();
+});
+
+})();
+
+</script>
+
+</body>
+</html>
